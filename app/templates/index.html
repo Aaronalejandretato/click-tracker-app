@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Click Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+        .ad { border: 1px solid #ccc; padding: 20px; margin: 20px auto; width: 300px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido a Click Tracker</h1>
+    <div class="ad" onclick="sendClick('anuncio_1')">🟦 Anuncio 1</div>
+    <div class="ad" onclick="sendClick('anuncio_2')">🟨 Anuncio 2</div>
+    <div class="ad" onclick="sendClick('anuncio_3')">🟥 Anuncio 3</div>
+
+    <script>
+        function sendClick(adId) {
+            fetch('/click', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ ad_id: adId })
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    volumes:
+      - ./telemetry/otel-config.yaml:/etc/otelcol/config.yaml
+    command: ["--config=/etc/otelcol/config.yaml"]
+    ports:
+      - "4317:4317"      # OTLP gRPC
+      - "4318:4318"      # OTLP HTTP
+      - "9464:9464"      # Prometheus scrape
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./telemetry/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+
+  flask:
+    build: .
+    depends_on:
+      - otel-collector
+    ports:
+      - "5000:5000"
