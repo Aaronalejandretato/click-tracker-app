@@ -18,7 +18,6 @@
 
 
 from flask import Flask, render_template, request, jsonify
-from datetime import timedelta  # ← NUEVA IMPORTACIÓN
 from opentelemetry import metrics
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.metrics import MeterProvider

@@ -12,3 +12,6 @@ python app\main.py
 🧩 Instalación de dependencias OpenTelemetry
 
 pip install opentelemetry-api opentelemetry-sdk opentelemetry-exporter-otlp opentelemetry-instrumentation-flask opentelemetry-util-http
+
+
+pip freeze > requirements.txt
