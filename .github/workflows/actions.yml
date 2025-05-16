@@ -27,8 +27,7 @@ jobs:
 
       - name: Format code with black
         run: |
-            black app/**/*.py
-
+          find app -name "*.py" | xargs black
 
       - name: Lint with flake8 (solo avisa)
         run: |
