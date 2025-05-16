@@ -1,3 +1,7 @@
+# Click Tracker App
+
+![actions](https://github.com/Aaronalejandretato/click-tracker-app/actions/workflows/actions.yml/badge.svg)
+
 python -m venv venv
 
 .\venv\Scripts\Activate.ps1
