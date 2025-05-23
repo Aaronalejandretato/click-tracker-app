@@ -1,0 +1,60 @@
+---
+- name: Desplegar Metriclick completo con imagen desde Docker Hub
+  hosts: servidores
+  become: true
+
+  vars:
+    proyecto_dir: /opt/metriclick
+
+  tasks:
+    - name: Instalar dependencias necesarias
+      apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - docker-compose-plugin
+        state: present
+        update_cache: yes
+
+    - name: Instalar Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+        update_cache: yes
+
+    - name: Asegurar que Docker está activo
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Crear carpeta del proyecto
+      file:
+        path: "{{ proyecto_dir }}"
+        state: directory
+
+    - name: Copiar docker-compose.prod.yml
+      copy:
+        src: ../docker-compose.prod.yml
+        dest: "{{ proyecto_dir }}/docker-compose.prod.yml"
+
+    - name: Copiar carpeta telemetry/
+      copy:
+        src: ../telemetry/
+        dest: "{{ proyecto_dir }}/telemetry/"
+        mode: preserve
+
+    - name: Descargar imagen desde Docker Hub
+      docker_image:
+        name: arn97/click-tracker-app
+        source: pull
+
+    - name: Ejecutar docker compose up
+      command: docker compose -f docker-compose.prod.yml up -d
+      args:
+        chdir: "{{ proyecto_dir }}"

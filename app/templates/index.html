@@ -2,26 +2,33 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Click Tracker</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
-        .ad { border: 1px solid #ccc; padding: 20px; margin: 20px auto; width: 300px; cursor: pointer; }
-    </style>
+    <title>Metriclick - Análisis de Usuario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <h1>Bienvenido a Click Tracker</h1>
-    <div class="ad" onclick="sendClick('anuncio_1')">🟦 Anuncio 1</div>
-    <div class="ad" onclick="sendClick('anuncio_2')">🟨 Anuncio 2</div>
-    <div class="ad" onclick="sendClick('anuncio_3')">🟥 Anuncio 3</div>
+    <h1>Demo Metriclick</h1>
+    <p> Al hacer click en uno de los elementos informativos y observaremos cómo se registran las interacciones para su análisis en tiempo real.</p>
 
-    <script>
-        function sendClick(adId) {
-            fetch('/click', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ ad_id: adId })
-            });
-        }
-    </script>
+    <div class="section">
+        <div class="click-item" onclick="sendClick('anuncio_1')">
+            <h2>🌐 Página principal de Accenture</h2>
+            <p>Descubre más sobre los servicios de Accenture.</p>
+        </div>
+        <div class="click-item" onclick="sendClick('anuncio_2')">
+            <h2>📰 Artículo destacado</h2>
+            <p>Lee la última noticia sobre automatización y DevOps.</p>
+        </div>
+        <div class="click-item" onclick="sendClick('anuncio_3')">
+            <h2>📘 Documentación técnica</h2>
+            <p>Accede a los recursos de aprendizaje usados en esta app.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        Proyecto final de Automatización y Observabilidad Aarón Alejandre Tato - Desarrollado con Flask, OpenTelemetry, Prometheus y Grafana.
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </body>
 </html>
